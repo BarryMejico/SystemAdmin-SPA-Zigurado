@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Authen;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -17,3 +17,14 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::middleware('auth:sanctum')->get('/Authenticated', function () {
+    return true;
+});
+
+Route::post('register',[Authen::class,'register']);
+Route::post('login',[Authen::class,'login']);
+Route::post('logout',[Authen::class,'logout']);
+Route::get('thatProfile',[Authen::class,'profile_code']);
+
+ 

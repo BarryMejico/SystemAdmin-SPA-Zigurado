@@ -5,4 +5,8 @@ import {createApp} from 'vue'
 
 import App from '../vueTemplate/App.vue'
 
-createApp(App).mount("#app")
+import router from './routes.js'
+
+createApp(App)
+.use(router)
+.mount("#app")
