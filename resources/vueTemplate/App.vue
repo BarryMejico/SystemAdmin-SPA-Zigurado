@@ -13,7 +13,8 @@
 <script>
 import navigation from './nav/nav.vue'
 import myfooter from './myfooter/myfooter.vue'
-import axios from 'axios';
+import { useUser } from '../Store/user';
+
 export default {
   components:{
     navigation,
@@ -21,19 +22,22 @@ export default {
   },
 
   setup() {
-
+        const userData=useUser();
+        return {userData}
    },
 
    async created(){
-    this.get_logUser()
+
+   },
+
+   mounted(){
+    const userData=useUser();
+    userData.logUser()
    },
 
    methods:{
     async get_logUser(){
-        await axios.get('api/user')
-                    .then((res)=>{
-                      console.log(res.data)
-                    })
+
     }
    }
 }

@@ -17,8 +17,12 @@
 
 <script>
 import axios from 'axios';
-
+import { useUser } from '../../Store/user';
 export default{
+setup(){
+        const userDatax=useUser();
+        return {userDatax}
+},
 data(){
     return{
         data:{
@@ -28,22 +32,33 @@ data(){
     }
 },
 methods:{
-    login(){
+    async login(){
         const redirectPath = this.$route.query.redirect
-        axios.get('/sanctum/csrf-cookie').then(response => {
-                axios
-                    .post('/api/login',this.data)
-                    .then((res)=>{
-                        console.log(res.data)
-                        this.$router.push(redirectPath)
-                    })
-                    .catch((err)=>{
-                        console.log(err.response.data)
-                    })
-            });
+        if(await this.userDatax.loginuser(this.data)){
+            if(undefined!=redirectPath){
+                this.$router.push(redirectPath)
+            }
+            else{this.$router.push("/myprofile")}
+        }
+        },
+},
+computed:{
+        userData(){
+            return this.userDatax.userData
+        }
+    },
+watch:{
+    userData(newvalue){
+        if(newvalue.id){
+            const redirectPath = this.$route.query.redirect
+            if(undefined!=redirectPath){
+                this.$router.push(redirectPath)
+            }
+            else{this.$router.push("/myprofile")}
+
         }
 
-        
+    }
 }
 }
 </script>

@@ -2,6 +2,8 @@ import{createRouter,createWebHistory} from 'vue-router'
 
 import Home from '../vueTemplate/Home.vue'
 import About from '../vueTemplate/about.vue'
+import { useUser } from '../Store/user'
+
 // import Login from '../vueTemplate/Auth/login.vue'
 // import Register from '../vueTemplate/Auth/registration.vue'
 
@@ -39,17 +41,17 @@ const routes=[
         // import function for lazy loading 
         component:()=>import('../vueTemplate/profile/myProfile.vue'),
         // route protect
-        beforeEnter:(to,from,next)=>{
-            axios.get('api/user').then(() => {
-                    next()
-                })
-                .catch(()=>{
-                    return next({ name: 'login', query:{redirect:to.fullPath} })
-                })        
-        },
-        // meta:{
-        //     requiresAuth:true,
-        // }
+        // beforeEnter:(to,from,next)=>{
+        //     axios.get('api/user').then(() => {
+        //             next()
+        //         })
+        //         .catch(()=>{
+        //             return next({ name: 'login', query:{redirect:to.fullPath} })
+        //         })        
+        // },
+        meta:{
+            requiresAuth:true,
+        }
     },
 
 
@@ -80,10 +82,9 @@ const router=createRouter({
 })  
 
 router.beforeEach((to,from)=>{
-    if(to.meta.requiresAuth){
-        // axios.get('api/Authenticated').then(() => {
-        //     next()
-        // })
+    const authen=useUser();
+    if(to.meta.requiresAuth && !authen.userData.name){
+        return{name:'login',query:{redirect:to.fullPath}}
     }
 })
     
