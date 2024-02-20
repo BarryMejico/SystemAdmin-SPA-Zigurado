@@ -1,5 +1,6 @@
 <template>
     <div>
+        <h1>Login</h1>
         <form>
             <label>User Name:</label>
             <input type="text" placeholder="User Name" v-model="data.email"><br>

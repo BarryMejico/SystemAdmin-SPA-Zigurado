@@ -1,12 +1,15 @@
 <template>
   <div>
-    <navigation></navigation>    
-  </div>
+    <container>
+      <navigation></navigation>    
+  
+    <ToolBar></ToolBar>
+  
+    <router-view :key="$route.path"></router-view>
 
-
-<router-view :key="$route.path"></router-view>
-<div>
-  <myfooter></myfooter>
+    <myfooter></myfooter>
+    </container>
+    
 </div>
 
 </template>
@@ -14,11 +17,14 @@
 import navigation from './nav/nav.vue'
 import myfooter from './myfooter/myfooter.vue'
 import { useUser } from '../Store/user';
+import ToolBar from './nav/toolBar.vue';
 
 export default {
   components:{
     navigation,
-    myfooter
+    myfooter,
+    ToolBar
+    
   },
 
   setup() {
