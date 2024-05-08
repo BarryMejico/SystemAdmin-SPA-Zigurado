@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Authen;
+use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\menu;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -23,8 +25,12 @@ Route::middleware('auth:sanctum')->get('/Authenticated', function () {
 });
 
 Route::post('register',[Authen::class,'register']);
+
 Route::post('login',[Authen::class,'login']);
 Route::post('logout',[Authen::class,'logout']);
+
 Route::get('thatProfile',[Authen::class,'profile_code']);
 
- 
+Route::get('menuList',[PermissionController::class,'menuFor']);
+
+Route::get('listofMenu',[menu::class,'index_menu']);

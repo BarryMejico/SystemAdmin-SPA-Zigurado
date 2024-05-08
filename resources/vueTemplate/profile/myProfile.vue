@@ -4,7 +4,7 @@
         <label>Name: </label><span>{{ userData.userData.name }}</span><br>
         <label>ID: </label><span>{{ userData.userData.id }}</span><br>
         <label>email: </label><span>{{ userData.userData.email }}</span><br>
-        <button @click="logout">LogOut</button>
+        <button type="button" @click="logout">LogOut</button>
     </div>
 </template>
 <script>

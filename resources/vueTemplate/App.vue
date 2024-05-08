@@ -1,15 +1,11 @@
 <template>
-  <div>
-    <container>
-      <navigation></navigation>    
-  
-    <ToolBar></ToolBar>
-  
-    <router-view :key="$route.path"></router-view>
-
-    <myfooter></myfooter>
-    </container>
-    
+  <div class="container mx-auto">
+    <div class="grid grid-rows-3">
+      <div class="col-span-12"><navigation></navigation> </div>
+      <div class="col-span-2"><ToolBar></ToolBar></div>
+      <div class="col-span-10"><router-view :key="$route.path"></router-view></div>
+      <div class="col-span-12"><myfooter></myfooter></div>
+    </div>    
 </div>
 
 </template>
@@ -17,7 +13,7 @@
 import navigation from './nav/nav.vue'
 import myfooter from './myfooter/myfooter.vue'
 import { useUser } from '../Store/user';
-import ToolBar from './nav/toolBar.vue';
+import ToolBar from './nav/menubar.vue';
 
 export default {
   components:{

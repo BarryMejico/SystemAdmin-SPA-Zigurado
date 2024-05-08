@@ -29,11 +29,6 @@ class Authen extends Controller
             'password' => Hash::make($REQUEST['password']),
             'code' => $Code,
             'permiCode'=>'1',
-            
-            // 'type' => $REQUEST['type'],
-            // 'Profile_Picture'=>'ProfilePictures/download.png',
-            // for temporary disable emailvalidation
-            // 'email_verified_at'=>'2021-10-13 20:40:32'
         ]);
         $message ="Data has been saved";
         return ;

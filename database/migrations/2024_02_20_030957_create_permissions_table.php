@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('menus', function (Blueprint $table) {
-            $table->id();
+        Schema::create('permissions', function (Blueprint $table) {
+            // $table->id();
             $table->timestamps();
-            $table->string('menuParent');// 'menuParent' id of parent root if no parent,
-            $table->string('Description');// 'Description',
-            $table->string('icon');// 'icon',
-            $table->string('slug');// 'route',
+            $table->string('permCode');
+            $table->primary('permCode');
+            $table->string('Description');
         });
     }
 
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('menus');
+        Schema::dropIfExists('permissions');
     }
 };

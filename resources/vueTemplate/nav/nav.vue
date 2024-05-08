@@ -1,7 +1,7 @@
 
 <template>
     <div>
-        <hr>
+        <nav>
         <ul class="topnav">
             <li>
                 <router-link to="/">
@@ -43,9 +43,8 @@
                        <span> {{userData.name  }}</span>
                 </router-link>
             </li>
-
         </ul>
-        <hr>
+    </nav>
 
         <span @click.prevent="goback">
             Back
@@ -113,7 +112,7 @@ ul.topnav li span {
   text-decoration: none;
 }
 
-ul.topnav li span:hover:not(.router-link-active) {background-color: #111;}
+ul.topnav li span:hover {background-color: #111;}
 
 ul.topnav li .router-link-active span {background-color: #04AA6D;}
 

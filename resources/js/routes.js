@@ -51,7 +51,34 @@ const routes=[
         // },
         meta:{
             requiresAuth:true,
-        }
+        },
+    },
+
+    {
+        path:'/admin',
+        name:'admin',
+        component:()=>import('../vueTemplate/adminSystem/adminDashboard.vue'),
+        meta:{
+            requiresAuth:true,
+        },
+
+        children:[
+            {path:'/',
+            name:'menulist',
+           component:()=>import('../vueTemplate/adminSystem/menu/menu.vue')},
+
+            {path:'/menu',
+             name:'menulist',
+            component:()=>import('../vueTemplate/adminSystem/menu/menu.vue')},
+            
+            {path:'/permission',
+             name:'permission',
+             component:()=>import('../vueTemplate/adminSystem/permission/permission.vue')},
+           
+           {path:'/user',
+            name:'users',
+            component:()=>import('../vueTemplate/adminSystem/users/users.vue')},
+        ]
     },
 
 
