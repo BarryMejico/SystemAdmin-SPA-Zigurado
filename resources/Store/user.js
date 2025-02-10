@@ -9,7 +9,7 @@ defineStore("code",{
     // state
     state:()=>{
         return{
-            authenticated:false,
+            authenticated:true,
             userData:{}
         }
     },
@@ -23,7 +23,9 @@ defineStore("code",{
             axios
                 .post('api/logout')
                 .then(()=>{
-                    this.userData={}
+                    this.authenticated=false, 
+                    this.userData={
+                    }
                 })
         },
 
@@ -33,13 +35,14 @@ defineStore("code",{
              axios
                    .post('/api/login',data)
                    .then((res)=>{
-                        
+                    this.authenticated=true,
                         this.userData=res.data
                         useMenusa.getMenu(res.data.id)
                         
                     return true
                    })
                    .catch((err)=>{
+                    this.authenticated=false
                     //    console.log(err)
                    })
            });
@@ -49,11 +52,13 @@ defineStore("code",{
             const useMenusa = useMenus();
             await axios.get('api/user')
                         .then((res)=>{
+                           this.authenticated = true
                            this.userData=res.data
                            useMenusa.getMenu(res.data.id)
                         })
                         .catch((err)=>{
                             // console.log(err.response.data)
+                            this.authenticated = false
                         })
         }
     },
