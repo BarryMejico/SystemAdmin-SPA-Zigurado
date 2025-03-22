@@ -10,6 +10,7 @@
       <i class="fas fa-bars"></i>
     </label>
     <!-- Site logo -->
+    <!-- <img src='/media_ZIGURADO/logo.jpg' alt="Team working together" style="width:150px;height:auto;"> -->
     <label class="logo">ZIGURADO</label>
     <!-- Navigation links -->
     <ul>
@@ -123,6 +124,11 @@ nav {
   height: 80px;
   width: 100%;
 }
+
+.logo{
+  padding: 0 100px;
+}
+
 label.logo {
   color: #DB1a1a;
   font-size: 25px;

@@ -81,6 +81,56 @@ const routes=[
         ]
     },
 
+    {
+        path:'/customer',
+        name:'Customer',
+        // import function for lazy loading 
+        component:()=>import('../vueTemplate/Customer/Customer.vue'),
+        meta:{
+            requiresAuth:true,
+        },
+    },
+
+    {
+        path:'/inventory',
+        name:'Inventory',
+        // import function for lazy loading 
+        component:()=>import('../vueTemplate/inventory/inventory.vue'),
+        meta:{
+            requiresAuth:true,
+        },
+    },
+
+    {
+        path:'/JO',
+        name:'JO',
+        // import function for lazy loading 
+        component:()=>import('../vueTemplate/joborder/JO_form.vue'),
+        meta:{
+            requiresAuth:true,
+        },
+    },
+
+    {
+        path:'/cashflow',
+        name:'CashFlow',
+        // import function for lazy loading 
+        component:()=>import('../vueTemplate/reports/cashflow.vue'),
+        meta:{
+            requiresAuth:true,
+        },
+    },
+
+    {
+        path:'/joborder',
+        name:'JobOrder',
+        // import function for lazy loading 
+        component:()=>import('../vueTemplate/joborder/JO.vue'),
+        meta:{
+            requiresAuth:true,
+        },
+    },
+
 
 
     {

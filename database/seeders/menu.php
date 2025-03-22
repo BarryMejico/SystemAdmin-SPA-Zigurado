@@ -24,58 +24,58 @@ class menu extends Seeder
         DB::table('menus')->insert([
             'id'=>'2',
             'menuParent'=>'root',
-            'Description'=>'menu 1',
+            'Description'=>'Customers',
             'icon'=>'clipboard',
-            'slug'=>'/nextTime', 
+            'slug'=>'/customer', 
         ]);
 
         DB::table('menus')->insert([
             'id'=>'3',
             'menuParent'=>'root',
-            'Description'=>'Menu 2',
+            'Description'=>'Inventory',
             'icon'=>'clipboard',
-            'slug'=>'/nextTime', 
+            'slug'=>'0', 
         ]);
 
         
         DB::table('menus')->insert([
             'id'=>'4',
-            'menuParent'=>'root',
-            'Description'=>'Menu 3',
+            'menuParent'=>'3',
+            'Description'=>'Receiving',
             'icon'=>'clipboard',
-            'slug'=>'0', 
+            'slug'=>'/inventory', 
         ]);
 
         DB::table('menus')->insert([
             'id'=>'8',
-            'menuParent'=>'4',
-            'Description'=>'submenu',
+            'menuParent'=>'3',
+            'Description'=>'Issuance',
             'icon'=>'clipboard',
             'slug'=>'/encashment', 
         ]);
 
         DB::table('menus')->insert([
             'id'=>'9',
-            'menuParent'=>'4',
-            'Description'=>'Submenu 4 1',
+            'menuParent'=>'root',
+            'Description'=>'Job Order',
             'icon'=>'clipboard',
-            'slug'=>'/ReceivedPayments', 
-        ]);
-
-        DB::table('menus')->insert([
-            'id'=>'10',
-            'menuParent'=>'4',
-            'Description'=>'Submenu 4 2',
-            'icon'=>'clipboard',
-            'slug'=>'/FinancialReport', 
+            'slug'=>'/joborder', 
         ]);
 
         DB::table('menus')->insert([
             'id'=>'5',
-            'menuParent'=>'1',
-            'Description'=>'Menu',
+            'menuParent'=>'root',
+            'Description'=>'Report',
             'icon'=>'clipboard',
-            'slug'=>'/menu', 
+            'slug'=>'0', 
+        ]);
+
+        DB::table('menus')->insert([
+            'id'=>'10', 
+            'menuParent'=>'5',
+            'Description'=>'Cash Flow',
+            'icon'=>'clipboard',
+            'slug'=>'/cashflow', 
         ]);
 
         DB::table('menus')->insert([
@@ -92,6 +92,14 @@ class menu extends Seeder
             'Description'=>'Permissions',
             'icon'=>'clipboard',
             'slug'=>'/permission', 
+        ]);
+
+        DB::table('menus')->insert([
+            'id'=>'11',
+            'menuParent'=>'1',
+            'Description'=>'Menu',
+            'icon'=>'clipboard',
+            'slug'=>'/menu', 
         ]);
     }
 }

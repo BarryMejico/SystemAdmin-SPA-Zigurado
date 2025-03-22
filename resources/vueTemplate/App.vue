@@ -7,7 +7,7 @@
     <!-- Main Content -->
     <main class="main-content">
       <div v-show="userData.authenticated" class="secondary-column">
-          <ToolBar></ToolBar>{{ userData }}
+          <ToolBar></ToolBar>
             <!-- Add more content as needed -->
         </div>  
       <div class="primary-column">
@@ -111,7 +111,7 @@ body {
     flex: 25%;/*  Takes up 25% of the space*/
     /* width: 350px; */
     background-color: #f7fafc;
-    padding: 1.5rem;
+    padding: 5px;
     border-radius: 8px;
 }
 

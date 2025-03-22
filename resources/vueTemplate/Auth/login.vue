@@ -83,6 +83,7 @@ watch:{
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
 } */
+
 .netbody{
   min-height: 100vh;
   display: flex;

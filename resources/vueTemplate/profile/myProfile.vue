@@ -3,7 +3,7 @@
 
         <div class="profile-card">
         <div class="profile-header"></div>
-        <img src="/api/placeholder/100/100" alt="Profile" class="profile-img">
+        <img src='/media_ZIGURADO/black_logo.jpg' alt="Profile" class="profile-img">
         <div class="profile-content">
             <h2 class="profile-name">{{ userData.userData.name }}</h2>
             <div class="profile-title">{{ userData.userData.email }}</div>
