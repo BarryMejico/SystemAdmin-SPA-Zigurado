@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Authen;
 use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\CustomersController;
 use App\Http\Controllers\menu;
 /*
 |--------------------------------------------------------------------------
@@ -34,3 +35,9 @@ Route::get('thatProfile',[Authen::class,'profile_code']);
 Route::get('menuList',[PermissionController::class,'menuFor']);
 
 Route::get('listofMenu',[menu::class,'index_menu']);
+
+// customer
+Route::post('SaveCus',[CustomersController::class,'store']);
+Route::post('DeleteCus',[CustomersController::class,'Delete']);
+Route::post('ModifyCus',[CustomersController::class,'update']);
+Route::get('LoadCus',[CustomersController::class,'LoadCus']);

@@ -20,7 +20,7 @@
                 <label class="label2" for="phone">Contact Number</label>
                 <input type="tel" id="phone" name="phone" required>
             </div>
-            <button type="submit">Save Contact</button>
+            <button type="submit" @click="saveCus()">Save Contact</button>
         </div>
         <div id="successMessage" class="success-message">
             Contact information saved successfully!
@@ -44,6 +44,9 @@ export default{
     },
 
     computed:{
+        savecus(){
+            
+        },
         modal(){
             return document.getElementById("myModalCustomer")
         }

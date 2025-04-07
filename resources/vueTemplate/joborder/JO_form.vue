@@ -1,7 +1,6 @@
 <template>
     <div>
         <h1>Create Job Order</h1>
-        <label>To</label>
         <input type="date" id="today" name="today" v-model="dateToday"><br>
         <CustomerDetails></CustomerDetails> <br>
         <label>Problem Description</label><br>
