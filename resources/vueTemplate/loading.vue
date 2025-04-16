@@ -1,6 +1,7 @@
 <template>
     <div>
-    
+    <div  v-if="doshow">
+       
     <div class="loadinbody">
         <div class="floating-div">
         <div class="loader-container">
@@ -13,10 +14,25 @@
     </div>
     </div>
 
-
+    s
+</div>
     </div>
 </div>
 </template>
+
+<script>
+  export default {
+    props: [
+      'showMe'
+    ],
+
+    computed:{
+        doshow:function(){
+           return this.showMe
+        }
+    },
+  }
+</script>
 
 <style>
 

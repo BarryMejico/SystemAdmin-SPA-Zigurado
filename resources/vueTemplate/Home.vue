@@ -4,7 +4,7 @@
         <hr>
         <myTmodal></myTmodal>
         <button @click="loadingScreen()" >loading</button>
-        <div v-if="loadingDaw"><Loading></Loading></div>
+        <div><Loading></Loading></div>
         
     </div>
 </template>

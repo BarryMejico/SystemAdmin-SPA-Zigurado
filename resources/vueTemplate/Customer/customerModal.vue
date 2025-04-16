@@ -14,13 +14,13 @@
         <div id="contactForm">
             <div class="form-group">
                 <label class="label2" for="name">Full Name</label>
-                <input type="text" id="name" name="name" required>
+                <input type="text" id="name" name="name" v-model="customerDetails.Name" required>
             </div>
             <div class="form-group">
                 <label class="label2" for="phone">Contact Number</label>
-                <input type="tel" id="phone" name="phone" required>
+                <input type="tel" id="phone" name="phone" v-model="customerDetails.Number" required>
             </div>
-            <button type="submit" @click="saveCus()">Save Contact</button>
+            <button @click="saveThisCus()">Save Contact</button>
         </div>
         <div id="successMessage" class="success-message">
             Contact information saved successfully!
@@ -30,13 +30,23 @@
         </div>
 
         </div>
+            <Loading :showMe="loadingDaw"></Loading>
     </div>
 </template>
 
 <script>
+import axios from 'axios';
+import Loading from '../loading.vue';
+
 export default{
+    components:{ Loading},
     data(){
         return{
+            loadingDaw:false,
+            customerDetails:{
+                Name:'',
+                Number:'',
+            },
             data:{
                 modal : document.getElementById("myModalCustomer")
             }
@@ -44,15 +54,26 @@ export default{
     },
 
     computed:{
-        savecus(){
-            
-        },
         modal(){
             return document.getElementById("myModalCustomer")
         }
     },
 
     methods:{
+        saveThisCus(){
+            this.loadingDaw=true
+            axios.post('/api/SaveCus',this.customerDetails)
+            .then(()=>{
+                this.loadingDaw = false
+                this.hide()
+                this.$emit("ClickSave",this.customerDetails)                
+            })
+            .catch((errors)=>{
+                console.log(errors)
+            })
+            
+        },
+
         show(){
             this.modal.style.display="block";
         },

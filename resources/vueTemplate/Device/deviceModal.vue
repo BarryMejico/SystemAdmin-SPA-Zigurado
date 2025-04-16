@@ -2,9 +2,9 @@
     <div>
         <!-- Trigger/Open The Modal -->
         <button @click="show()">Add Device</button>
-
+        
         <!-- The Modal -->
-        <div id="myModalDevice" class="modal">
+        <div :id=" 'D'+ customer.Ccode" class="modal">
 
         <!-- Modal content -->
         <div class="modal-content">
@@ -14,13 +14,13 @@
         <div id="contactForm">
             <div class="form-group">
                 <label class="label2" for="name">Model</label>
-                <input type="text" id="name" name="name" required>
+                <input v-model="data.device.Name" type="text" id="name" name="name" required>
             </div>
             <div class="form-group">
                 <label class="label2" for="phone">Details</label>
-                <input type="tel" id="phone" name="phone" required>
+                <input v-model="data.device.Details" type="tel" id="phone" name="phone" required>
             </div>
-            <button type="submit">Save Contact</button>
+            <button @click="saveDevice()">Save Contact</button>
         </div>
         <div id="successMessage" class="success-message">
             Contact information saved successfully!
@@ -30,27 +30,70 @@
         </div>
 
         </div>
+        <Loading :showMe="loadingDaw"></Loading>
     </div>
 </template>
 
 <script>
+import Loading from '../loading.vue'
+
 export default{
+    components:{
+        Loading
+    },
+
+    props: [
+      'textInside2'
+    ],
+
+
     data(){
         return{
+            loadingDaw:false,
             data:{
-                modal : document.getElementById("myModalDevice")
+                device:{
+                    Name:'',
+                    Details:'',
+                    Ccode:'',
+                }
             }
         }
     },
 
     computed:{
         modal(){
-            return document.getElementById("myModalDevice")
-        }
+            return document.getElementById('D'+ this.textInside2.Ccode)
+        },
+
+        customer:function(){
+           return this.textInside2
+        },
     },
 
     methods:{
+
+        saveDevice(){
+            this.data.device.Ccode=this.customer.Ccode
+            console.log(this.data.device)
+            this.loadingDaw=true
+
+            axios.post('/api/SaveDevice',this.data.device)
+            .then(()=>{
+                this.loadingDaw = false
+                this.data.device={
+                    Name:'',
+                    Details:'',
+                    Ccode:'',
+                }
+                this.hide()              
+            })
+            .catch((errors)=>{
+                console.log(errors)
+            })
+        },
+
         show(){
+
             this.modal.style.display="block";
         },
 
@@ -60,60 +103,3 @@ export default{
     },
 }
 </script>
-
-<style>
-h2 {
-    color: #333;
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-.form-group {
-    margin-bottom: 20px;
-}
-
-.label2 {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: bold;
-    color: #555;
-}
-
-input {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 16px;
-    transition: border-color 0.3s;
-}
-
-input:focus {
-    border-color: #4a90e2;
-    outline: none;
-}
-
-button {
-    background-color: #4a90e2;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    padding: 12px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    width: 100%;
-    transition: background-color 0.3s;
-}
-
-button:hover {
-    background-color: #357abD;
-}
-
-.success-message {
-    display: none;
-    color: #4CAF50;
-    text-align: center;
-    margin-top: 20px;
-    font-weight: bold;
-}
-</style>

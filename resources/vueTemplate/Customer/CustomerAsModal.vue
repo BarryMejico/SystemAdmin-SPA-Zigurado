@@ -1,7 +1,7 @@
 <template>
     <div>
         <!-- Trigger/Open The Modal -->
-        <button @click="show()">Open Modal</button>
+        <button @click="show()">Customer</button>
 
         <!-- The Modal -->
         <div id="myModal" class="modal">
@@ -10,6 +10,7 @@
         <div class="modal-content">
             <span @click="hide()" class="close">&times;</span>
             <p>Some text in the Modal..</p>
+            <Customer></Customer>
         </div>
 
         </div>
@@ -17,7 +18,11 @@
 </template>
 
 <script>
+import Customer from './Customer.vue'
 export default{
+    components:{
+        Customer
+    },
     data(){
         return{
 

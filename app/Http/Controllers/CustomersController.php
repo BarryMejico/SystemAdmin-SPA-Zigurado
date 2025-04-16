@@ -17,7 +17,7 @@ class CustomersController extends Controller
             // 'Address'=>'required'  
         ]);
         $input = $request->all();
-        $Code=Ucode();
+        $Code='C' . Ucode();
 
         //----for taging to specific user/s
             // $UserIn=getUser()->id;

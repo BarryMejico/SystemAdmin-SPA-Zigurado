@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Authen;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\CustomersController;
+use App\Http\Controllers\DevicesController;
 use App\Http\Controllers\menu;
 /*
 |--------------------------------------------------------------------------
@@ -36,8 +37,14 @@ Route::get('menuList',[PermissionController::class,'menuFor']);
 
 Route::get('listofMenu',[menu::class,'index_menu']);
 
-// customer
+// customers
 Route::post('SaveCus',[CustomersController::class,'store']);
 Route::post('DeleteCus',[CustomersController::class,'Delete']);
 Route::post('ModifyCus',[CustomersController::class,'update']);
 Route::get('LoadCus',[CustomersController::class,'LoadCus']);
+
+// Devices
+Route::post('SaveDevice',[DevicesController::class,'store']);
+Route::post('ModifyDevice',[DevicesController::class,'update']);
+Route::get('ShowDevices',[DevicesController::class,'show']);
+Route::get('ShowCustomerDevice',[DevicesController::class,'showSpecific']);
