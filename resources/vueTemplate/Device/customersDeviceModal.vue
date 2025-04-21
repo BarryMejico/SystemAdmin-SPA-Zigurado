@@ -16,11 +16,13 @@
             
             <table>
                 <thead>
-                    <th>Device</th>
-                    <th>Description</th>
+                    <tr>
+                        <th>Device</th>
+                        <th>Description</th>
+                    </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="(device, x) in devices" :key="x">
+                    <tr v-for="(device, x) in devices" :key="x" @click="selectedDevice(device)">
                         <td>{{ device.Name }}</td>
                         <td>{{ device.Details }}</td>
                     </tr>
@@ -40,7 +42,8 @@ import Loading from '../loading.vue';
 
 export default{
     props: [
-      'textInside'
+      'textInside',
+      'requestEmitSelected'
     ],
 
     components:{
@@ -61,6 +64,10 @@ export default{
            return this.textInside
         },
 
+        selected(){
+            return this.requestEmitSelected
+        },
+
         modal(){
             return document.getElementById(this.textInside.Ccode)
         }
@@ -68,6 +75,25 @@ export default{
 
 
     methods:{
+
+        selectedDevice(device){
+            var topass={
+                        Customer:{
+                            Name:this.customer.Customer,
+                            Number:this.customer.Number,
+                            Ccode:this.customer.Ccode
+                        },
+                        Device:{
+                            Name:device.Name,
+                            Details:device.Details,
+                            Dcode:device.DeviceCode,
+                        },}
+            if(this.selected){
+                this.$emit("ClickSelected",topass)
+                this.hide()
+            }
+
+        },
 
         refreshList(){
             this.devices={}
@@ -78,6 +104,7 @@ export default{
             // console.log(res.data) 
             this.loadingDaw=false
             this.devices=res.data
+            
         })
         .catch((err)=>{
             console.log(err)

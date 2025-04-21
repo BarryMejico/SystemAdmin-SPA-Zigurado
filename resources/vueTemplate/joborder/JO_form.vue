@@ -2,10 +2,10 @@
     <div>
         <h1>Create Job Order</h1>
         <input type="date" id="today" name="today" v-model="dateToday"><br>
-        <CustomerDetails></CustomerDetails> <br>
+        <CustomerDetails @ClickSelected="selected"></CustomerDetails> <br>
         <label>Problem Description</label><br>
-        <textarea id="w3review" name="w3review" class="textare_PD">
-            At w3schools.com you will learn how to make a website. They offer free tutorials in all web development technologies.
+        <textarea v-model="problemDescription" id="w3review" name="w3review" class="textare_PD">
+            
         </textarea><br>
 
         <div>
@@ -13,10 +13,12 @@
                 <h2>Payment</h2>
                 <table>
                     <thead>
-                        <th>Description</th>
-                        <th>Amount Credit</th>
-                        <th>Amount Debit</th>
-                        <th>Balance</th>
+                        <tr>
+                            <th>Description</th>
+                            <th>Amount Credit</th>
+                            <th>Amount Debit</th>
+                            <th>Balances</th>
+                        </tr>
                     </thead>
                     <tbody>
                         <tr v-for="(payment, k) in payments" :key="k">
@@ -24,16 +26,16 @@
                                 {{ payment.Description }}
                             </td>
                             <td>
-                                <div v-if="payment.Credit>0">Php {{payment.Credit}}</div>
+                                <div v-if="payment.lockedCredit">Php {{payment.Credit}}</div>
                                 <div v-else>
-                                    <input type="number" min="0" v-show="payment.Debit==0" class="inputNumber" v-model="payment.Credit">
+                                    <input @change="onChangeComputation()" type="number" min="0" v-show="payment.Debit==0" class="inputNumber" v-model="payment.Credit">
                                 </div>
 
                             </td>
                             <td>
-                                <div v-if="payment.Debit>0">Php {{payment.Debit}}</div>
+                                <div v-if="payment.lockedDebit">Php {{payment.Debit}}</div>
                                 <div v-else>
-                                    <input type="number" min="0" v-show="payment.Credit==0" class="inputNumber" v-model="payment.Debit">
+                                    <input @change="onChangeComputation()" type="number" min="0" v-show="payment.Credit==0" class="inputNumber" v-model="payment.Debit">
                                 </div>
                             </td>
                             <td>
@@ -50,13 +52,13 @@
                         <tr>
 
                         <td>
-                            <input type="text" class="inputNumber">
+                            <input v-model="addLine.Description" type="text" class="inputNumber">
                         </td>
                         <td>
-                            <input type="number" max="0" v-show="debit==0" v-model="credit" class="inputNumber">
+                            <input v-model="addLine.Credit" type="number" min="0" v-show="debit==0"  class="inputNumber">
                         </td>
                         <td>
-                            <input type="number" min="0" v-show="credit==0" v-model="debit" class="inputNumber">
+                            <input v-model="addLine.Debit" type="number" min="0" v-show="credit==0"  class="inputNumber">
                         </td>
                         <td>
                             <label>php 0.00</label>
@@ -67,7 +69,7 @@
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td><button>Add Line</button></td>
+                        <td><button @click="addPaymentLine()">Add Line</button></td>
                         </tr>
                     </tbody>
                 </table>
@@ -79,18 +81,18 @@
         <div class="two-column">
             <div class="column">
                 <h2>Action Taken</h2>
-                <textarea class="textare_PD"></textarea><br>
+                <textarea v-model="actionTaken.Action" class="textare_PD"></textarea><br>
                 <label>Status:</label>
-                <input type="text"><br>
+                <input v-model="actionTaken.Status" type="text"><br>
                 <label>Repaired By:</label>
-                <input type="text">
+                <input v-model="actionTaken.RepairedBy" type="text">
             </div>
             <div class="column">
                 <h2>Inventory</h2>
             </div>
         </div>
     </div>
-    <button>Save</button>
+    <button @click="save()">Save</button>
     </div>
 </template>
 
@@ -101,24 +103,104 @@ export default{
     components:{CustomerDetails},
     data(){
         return{
+            CustomerDetailsData:{},
+            problemDescription:'',
             debit:0,
             credit:0,
             dateToday: new Date().toISOString().substr(0, 10),
             payments:[{
                 Description:"Total Amount",
-                Credit:1,
+                Credit:0,
                 Debit:0,
                 Balance:0,
-                X:false
+                X:false,
+                lockedCredit:false,
+                lockedDebit:true,
             },{
                 Description:"Deposit",
                 Credit:0,
                 Debit:0,
                 Balance:0,
-                X:false
+                X:false,
+                lockedCredit:true,
+                lockedDebit:false,
             }],
+
+            actionTaken:{
+                Action:'',
+                Status:'',
+                RepairedBy:''
+            },
+
+            addLine:{
+                Description:"",
+                Credit:0,
+                Debit:0,
+                Balance:0,
+                X:false,
+                lockedCredit:true,
+                lockedDebit:true,
+            }
         }
     },
+
+    methods:{
+        selected(event){
+            console.log(event)
+            this.CustomerDetailsData=event
+        },
+        save(){
+            var dataTopass={
+                    TransactionDate:this.dateToday,
+                    Ccode:this.CustomerDetailsData.Customer.Ccode,
+                    DeviceCode:this.CustomerDetailsData.Device.Dcode,
+                    ProblemDiscription:this.problemDescription,
+                    payments:this.payments,
+                    Action:this.actionTaken.Action,
+                    Status:this.actionTaken.Status,
+                    RepairedBy:this.actionTaken.RepairedBy
+
+            }
+            console.log(dataTopass)
+            },
+
+        onChangeComputation(){
+            var ComputeBalance=this.payments[0].Credit
+            this.payments[0].Balance=ComputeBalance
+            for(var i=1;
+                i<this.payments.length;
+                i++){
+                    // console.log(ComputeBalance)
+                    this.payments[i].Balance=this.payments[i-1].Balance+this.payments[i].Credit-this.payments[i].Debit;
+                }
+
+        },
+        addPaymentLine(){
+            if (this.addLine.Description!=""){
+                if(this.addLine.Debit>0 || this.addLine.Credit>0){
+                    this.payments.push(this.addLine)
+            this.addLine={
+                Description:"",
+                Credit:0,
+                Debit:0,
+                Balance:0,
+                X:false,
+                lockedCredit:true,
+                lockedDebit:true,
+            }
+
+            this.onChangeComputation()
+                }   
+            
+            }
+        },
+    },
+
+    computed:{
+        Balance(){
+            
+        }
+    }
 }
 </script>
 
