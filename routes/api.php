@@ -6,6 +6,7 @@ use App\Http\Controllers\Authen;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\CustomersController;
 use App\Http\Controllers\DevicesController;
+use App\Http\Controllers\JobOrdesController;
 use App\Http\Controllers\menu;
 /*
 |--------------------------------------------------------------------------
@@ -48,3 +49,9 @@ Route::post('SaveDevice',[DevicesController::class,'store']);
 Route::post('ModifyDevice',[DevicesController::class,'update']);
 Route::get('ShowDevices',[DevicesController::class,'show']);
 Route::get('ShowCustomerDevice',[DevicesController::class,'showSpecific']);
+
+// JO
+Route::post('SaveJO',[JobOrdesController::class,'store']);
+Route::post('ModifyJO',[JobOrdesController::class,'update']);
+Route::get('getJONumber',[JobOrdesController::class,'showSpecific']);
+Route::get('getJO',[JobOrdesController::class,'show']);

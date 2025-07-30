@@ -15,7 +15,8 @@ return new class extends Migration
             $table->string('DeviceCode');
             $table->primary('DeviceCode');
             $table->timestamps();
-            $table->string('Ccode')->references('Ccode')->on('customers')->onDelete('cascade');
+            $table->string('Ccode');
+            $table->foreign('Ccode')->references('Ccode')->on('customers')->onDelete('cascade');
             $table->string('Name');
             $table->string('Details')->nullable();
         });

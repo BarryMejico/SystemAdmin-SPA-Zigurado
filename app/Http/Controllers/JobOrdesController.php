@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\JobOrdes;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class JobOrdesController extends Controller
 {
@@ -28,7 +29,29 @@ class JobOrdesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'TransactionDate'=>'required',
+            'Ccode'=>'required',
+            'DeviceCode'=>'required',
+            'ProblemDescription'=>'required'
+        ]);
+
+        $input = $request->all();
+        $Code='JO' . Ucode();
+
+        $Device = JobOrdes::updateOrCreate([
+            'JOCode'=> $Code,
+            'TransactionDate'=>$input['TransactionDate'],
+            'Ccode'=> $input['Ccode'],
+            'DeviceCode'=>$input['DeviceCode'],
+            'ProblemDescription'=>$input['ProblemDescription'],
+
+            'Action'=> $input['Action'],
+            'Status'=>$input['Status'],
+            'RepairedBy'=>$input['RepairedBy'],
+        ]);
+        // pass to payments to save
+        return $Device;
     }
 
     /**
@@ -36,7 +59,24 @@ class JobOrdesController extends Controller
      */
     public function show(JobOrdes $jobOrdes)
     {
-        //
+        $resdevices=DB::table('job_ordes')
+        // ->select('DeviceCode','Ccode','Name','Details')
+        ->get();
+        return $resdevices;
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function showSpecific(Request $request,JobOrdes $jobOrdes)
+    {
+        $input = $request->all();
+        // dd($input['Ccode']);
+        $JO=DB::table('job_ordes')
+        // ->select('DeviceCode','Ccode','Name','Details')
+        ->where('JOCode','=',$input['JOCode'])
+        ->get();
+        return $JO;
     }
 
     /**
@@ -52,7 +92,28 @@ class JobOrdesController extends Controller
      */
     public function update(Request $request, JobOrdes $jobOrdes)
     {
-        //
+        $request->validate([
+            'TransactionDate'=>'required',
+            'Ccode'=>'required',
+            'DeviceCode'=>'required',
+            'ProblemDescription'=>'required'
+        ]);
+
+        $input = $request->all();
+
+        $JO = JobOrdes::where('JOCode',$input['JOCode'])
+        ->update([
+           'TransactionDate'=>$input['TransactionDate'],
+            'Ccode'=> $input['Ccode'],
+            'DeviceCode'=>$input['DeviceCode'],
+            'ProblemDescription'=>$input['ProblemDescription'],
+            
+            'Action'=> $input['Action'],
+            'Status'=>$input['Status'],
+            'RepairedBy'=>$input['RepairedBy'],
+        ]);
+
+        return $JO;
     }
 
     /**

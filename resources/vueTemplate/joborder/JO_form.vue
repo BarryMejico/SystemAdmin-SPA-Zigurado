@@ -146,7 +146,6 @@ export default{
 
     methods:{
         selected(event){
-            console.log(event)
             this.CustomerDetailsData=event
         },
         save(){
@@ -195,12 +194,6 @@ export default{
             }
         },
     },
-
-    computed:{
-        Balance(){
-            
-        }
-    }
 }
 </script>
 

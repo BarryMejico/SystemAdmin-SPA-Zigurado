@@ -108,7 +108,7 @@ class DevicesController extends Controller
            'Details'=> $input['Details'],
         ]);
 
-        return 'Done';
+        return $device;
     }
 
     /**
